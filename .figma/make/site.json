@@ -1,0 +1,10 @@
+{
+  "description": "An AI-powered personal learning mentor for Pakistani students, enhancing understanding and practice in subjects like Algebra through personalized guidance and analytics.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
