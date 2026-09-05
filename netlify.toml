@@ -1,0 +1,42 @@
+# Netlify configuration for Mentora AI.
+#
+# The React app builds to dist/ (Vite), and the AI backend runs as Netlify
+# Functions in netlify/functions/ — a port of server/server.mjs (which stays
+# the local dev proxy behind `npm run server` / `netlify dev`). The functions
+# serve the same three endpoints the app already calls:
+#   GET  /api/ai/health · POST /api/ai/ask · POST /api/ai/pdf
+#
+# The AI provider key never enters the repo or the frontend bundle. Set it in
+# Netlify under Site configuration > Environment variables:
+#   AI_API_KEY  — provider key (required)
+#   AI_BASE_URL — OpenAI-compatible base URL (optional, default OpenAI)
+#   AI_MODEL    — model name (optional, default gpt-4o-mini)
+
+[build]
+  command = "pnpm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Bundle each function's own code into a single file (esbuild). The Netlify
+# runtime packages (@netlify/blobs …) stay external and ship as real files in
+# each function zip. Caveat: `netlify dev` on Windows needs symlink privileges
+# to serve those externals locally (EPERM otherwise); production deploys are
+# unaffected.
+[functions]
+  node_bundler = "esbuild"
+
+# Local development: `netlify dev` serves the Vite app (port 8443) behind a
+# Netlify proxy (port 8888) that runs the functions with local Blobs
+# emulation. framework = "#custom" keeps the CLI from guessing a different
+# port (Vite's default 5173) — vite.config.ts pins the dev server to 8443.
+# Note that `pnpm dev` alone still uses server/server.mjs via the Vite /api
+# proxy — both paths call identical logic.
+[dev]
+  command = "pnpm run dev"
+  framework = "#custom"
+  targetPort = 8443
+  port = 8888
+  publish = "dist"
