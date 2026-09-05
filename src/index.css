@@ -274,4 +274,20 @@ body {
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .main-full { margin-left: 0 !important; }
+
+  /* Mobile: use dynamic viewport height so chat isn't cut by browser chrome */
+  .mentor-root {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  /* Reduce mentor padding on small screens so the chat area has more room */
+  .mentor-root .mentor-inner {
+    padding: 0.75rem;
+  }
+
+  /* Hide dashboard search on mobile to keep profile/avatar visible */
+  .dash-search {
+    display: none !important;
+  }
 }

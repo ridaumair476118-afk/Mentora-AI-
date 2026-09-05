@@ -412,7 +412,7 @@ function DashboardHeader({ onMenuClick, selection, onChangeSelection, user, onPr
         <Icons.menu size={20} />
       </button>
       {/* Search */}
-      <div className="flex-1 max-w-sm flex items-center gap-2.5 px-4 py-2.5 rounded-xl"
+      <div className="dash-search flex-1 max-w-sm flex items-center gap-2.5 px-4 py-2.5 rounded-xl"
         style={{ background: C.card, border: `1px solid ${C.border}` }}>
         <span style={{ color: C.ink300 }}><Icons.search size={15} /></span>
         <input className="flex-1 text-[13px] outline-none bg-transparent" placeholder="Search anything..."
@@ -1523,13 +1523,15 @@ function MentorScreen({ user, selection }: { user: StudentUser; selection: Selec
         )}
         <div ref={bottomRef} />
       </div>
-      <div className="px-5 pt-1.5 pb-1 flex gap-1.5 flex-wrap flex-shrink-0 bg-white" style={{ borderTop: `1px solid ${C.border}` }}>
-        {CHIPS.map(c => (
-          <button key={c} onClick={() => send(c)} disabled={loading}
-            className="text-[10px] font-medium px-2 py-[3px] rounded-lg border transition-all hover:border-indigo-400 hover:text-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed"
-            style={{ borderColor: C.border, color: C.ink300, background: C.surf1 }}>{c}</button>
-        ))}
-      </div>
+      {!msgs.some(m => m.role === "user") && (
+        <div className="px-5 pt-1.5 pb-1 flex gap-1.5 flex-wrap flex-shrink-0 bg-white" style={{ borderTop: `1px solid ${C.border}` }}>
+          {CHIPS.map(c => (
+            <button key={c} onClick={() => send(c)} disabled={loading}
+              className="text-[10px] font-medium px-2 py-[3px] rounded-lg border transition-all hover:border-indigo-400 hover:text-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed"
+              style={{ borderColor: C.border, color: C.ink300, background: C.surf1 }}>{c}</button>
+          ))}
+        </div>
+      )}
       {/* Status rows: voice listening + offline recording + PDF upload states + voice errors */}
       {(listening || recording || engineStatus || uploading || pdf || uploadError || voiceError) && (
         <div className="px-5 py-1.5 flex-shrink-0 bg-white">
@@ -3716,7 +3718,7 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden" style={{ background: C.bg }}>
+    <div className="mentor-root flex h-screen overflow-hidden" style={{ background: C.bg }}>
       {/* Board/Class/Subjects setup modal — shown on a student's first login, or when reopened */}
       {setupOpen && (
         <BoardSetupModal
@@ -3757,7 +3759,7 @@ export default function App() {
         <main key={screen} className={`flex-1 overflow-y-auto ${isMentor ? "flex flex-col" : ""}`}
           style={{ background: isDash ? C.surf1 : C.bg, animation: "pageEnter .36s ease both" }}>
           {isMentor ? (
-            <div className="flex-1 flex flex-col p-6 h-full"><MentorScreen user={user} selection={selection} /></div>
+            <div className="mentor-inner flex-1 flex flex-col p-6 h-full"><MentorScreen user={user} selection={selection} /></div>
           ) : (
             <div className="p-6">
               {screen === "dashboard"  && <DashboardScreen onNav={setScreen} onPractice={startPractice} selection={selection} userName={user.name} userId={userId} />}
