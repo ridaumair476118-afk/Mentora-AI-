@@ -286,8 +286,26 @@ body {
     padding: 0.75rem;
   }
 
-  /* Hide dashboard search on mobile to keep profile/avatar visible */
+  /* Dashboard header: two-row layout on small screens */
+  .dash-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+  /* Search drops to its own row */
   .dash-search {
-    display: none !important;
+    order: 1;
+    flex-basis: 100%;
+    max-width: 100% !important;
+  }
+  /* Keep profile name visible on mobile */
+  .profile-btn > div:first-child {
+    display: block !important;
+  }
+  .profile-btn {
+    gap: 0.375rem;
   }
 }

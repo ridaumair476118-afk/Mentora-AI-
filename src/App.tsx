@@ -407,7 +407,7 @@ function DashboardHeader({ onMenuClick, selection, onChangeSelection, user, onPr
   const notifCount = results.filter(r => new Date(r.takenAt).getTime() >= threeDaysAgo).length;
 
   return (
-    <div className="flex items-center gap-4 px-6 pt-5 pb-4">
+    <div className="dash-header flex items-center gap-4 px-6 pt-5 pb-4">
       <button onClick={onMenuClick} className="md:hidden p-1.5 rounded-lg" style={{ color: C.ink300 }}>
         <Icons.menu size={20} />
       </button>
@@ -458,7 +458,7 @@ function DashboardHeader({ onMenuClick, selection, onChangeSelection, user, onPr
           )}
         </div>
         {/* User profile */}
-        <button onClick={onProfile} className="flex items-center gap-2.5 pl-1 text-left" title="My profile">
+        <button onClick={onProfile} className="profile-btn flex items-center gap-2.5 pl-1 text-left" title="My profile">
           <Avatar name={user.name} size={36} />
           <div className="hidden sm:block">
             <p className="text-[13px] font-semibold leading-tight font-display" style={{ color: C.ink900 }}>{user.name}</p>
