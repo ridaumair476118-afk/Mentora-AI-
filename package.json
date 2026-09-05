@@ -12,11 +12,13 @@
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",
+    "@netlify/blobs": "^11.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "unpdf": "^1.8.1"
   },
   "devDependencies": {
+    "@netlify/functions": "^6.0.0",
     "@tailwindcss/vite": "^4.0.0",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
